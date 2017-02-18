@@ -7,17 +7,22 @@ namespace DotNetCore_WebAPI.Controllers
     public class CitiesController : Controller
     {
         [HttpGet]
-        public ActionResult GetCities()
+        public IActionResult GetCities()
         {
-            return new JsonResult(CitiesDataStore.Current.Cities);
+            return Ok(CitiesDataStore.Current.Cities);
         }
 
         [HttpGet("{id}")]
-        public ActionResult GetCity(int id)
+        public IActionResult GetCity(int id)
         {
-            return new JsonResult(
-                CitiesDataStore.Current.Cities.FirstOrDefault(x => x.Id == id)
-                );
+            var cityToReturn = CitiesDataStore.Current.Cities.FirstOrDefault(x => x.Id == id);
+
+            if (cityToReturn == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(cityToReturn);
         }
     }
 }
