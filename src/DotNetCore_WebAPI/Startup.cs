@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Serialization;
 
 namespace DotNetCore_WebAPI
 {
@@ -30,13 +25,12 @@ namespace DotNetCore_WebAPI
         {
             // Add framework services.
             services.AddMvc()
-                .AddJsonOptions(o => {
-                    if (o.SerializerSettings.ContractResolver != null)
-                    {                        
-                        var castedResolver = o.SerializerSettings.ContractResolver as DefaultContractResolver;
-                        castedResolver.NamingStrategy = null;
-                    }
-                });
+                .AddXmlDataContractSerializerFormatters();
+            //.AddMvcOptions(o =>
+            //{
+            //    這兩種方式都可以得到一樣的結果
+            //    o.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
