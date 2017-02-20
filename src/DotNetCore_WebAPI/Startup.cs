@@ -1,4 +1,5 @@
-﻿using DotNetCore_WebAPI.Services;
+﻿using DotNetCore_WebAPI.Models;
+using DotNetCore_WebAPI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -15,7 +16,7 @@ namespace DotNetCore_WebAPI
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
@@ -38,6 +39,7 @@ namespace DotNetCore_WebAPI
 #else
             services.AddTransient<IMailService, CloudMailService>();
 #endif
+            services.Configure<MailSettings>(options => Configuration.GetSection("mailSettings").Bind(options));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
