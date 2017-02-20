@@ -13,7 +13,7 @@ namespace DotNetCore_WebAPI.Entities
         [MaxLength(50)]
         public string Name { get; set; }
 
-        [MaxLength(200)]
+        [MaxLength(400)]
         public string Description { get; set; }
 
         [ForeignKey("CityId")]

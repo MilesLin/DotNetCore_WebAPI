@@ -8,9 +8,10 @@ using DotNetCore_WebAPI.Entities;
 namespace DotNetCore_WebAPI.Migrations
 {
     [DbContext(typeof(CityInfoContext))]
-    partial class CityInfoContextModelSnapshot : ModelSnapshot
+    [Migration("20170220100615_CityInfoDBChangePointOfInterest_Description_MaxLength")]
+    partial class CityInfoDBChangePointOfInterest_Description_MaxLength
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752")
