@@ -1,7 +1,9 @@
-﻿using DotNetCore_WebAPI.Models;
+﻿using DotNetCore_WebAPI.Entities;
+using DotNetCore_WebAPI.Models;
 using DotNetCore_WebAPI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -40,6 +42,10 @@ namespace DotNetCore_WebAPI
             services.AddTransient<IMailService, CloudMailService>();
 #endif
             services.Configure<MailSettings>(options => Configuration.GetSection("mailSettings").Bind(options));
+
+            var connectionString = "Server=(localdb)\\mssqllocaldb;Database=CityInfoDB;Trusted_Connection=True;";
+            services.AddDbContext<CityInfoContext>(o => o.UseSqlServer(connectionString));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
