@@ -28,6 +28,13 @@ namespace DotNetCore_WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Add the CORS services            
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",                        
+                    builder => builder.WithOrigins("http://localhost:2038"));
+            });
+
             // Add framework services.
             services.AddMvc()
                 .AddXmlDataContractSerializerFormatters();
@@ -61,6 +68,8 @@ namespace DotNetCore_WebAPI
             cityInfoContext.EnsureSeedDataForContext();
 
             app.UseStatusCodePages();
+
+            app.UseCors("AllowSpecificOrigin");
 
             app.UseMvc();
         }
