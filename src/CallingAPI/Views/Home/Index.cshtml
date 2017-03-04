@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Call API";
+}
+
+<script>
+    var serviceUrl = 'http://localhost:12686/api/values';
+
+    function sendRequest() {
+        var method = $('#method').val();
+        $.ajax({
+            type: method,
+            url: serviceUrl
+        }).done(function (data) {
+            $('#value1').text(data);
+        }).error(function (jqXHR, textStatus, errorThrown) {
+            $('#value1').text(jqXHR.responseText || textStatus);
+        });
+    }
+</script>
+<p></p>
+<select id="method">
+    <option value="get">GET</option>
+    <option value="post">POST</option>
+    <option value="put">PUT</option>
+</select>
+
+<input type="button" name="name" value="Try it" onclick="sendRequest();"/>
+<p></p>
+<pre id="abc">
+    <span id="value1"></span>
+</pre>
+

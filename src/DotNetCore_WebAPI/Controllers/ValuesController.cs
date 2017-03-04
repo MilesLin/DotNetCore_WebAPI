@@ -30,8 +30,8 @@ namespace DotNetCore_WebAPI.Controllers
         }
 
         // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        [HttpPut()]
+        public void Put([FromBody]string value)
         {
         }
 
