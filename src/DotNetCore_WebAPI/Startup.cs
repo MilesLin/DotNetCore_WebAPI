@@ -32,7 +32,10 @@ namespace DotNetCore_WebAPI
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowSpecificOrigin",                        
-                    builder => builder.WithOrigins("http://localhost:2038"));
+                    builder => builder.WithOrigins("http://localhost:2038")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    );
             });
 
             // Add framework services.
